@@ -1,5 +1,5 @@
 import sys
+
 sys.stdin.readline()
-lst = sorted(map(int, sys.stdin.readlines()))
-for l in lst:
-    print(l)
+lst = "\n".join(map(str, sorted(map(int, sys.stdin.readlines()))))
+print(lst)
