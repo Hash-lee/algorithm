@@ -10,16 +10,6 @@ for _ in range(int(sys.stdin.readline())):
     idx, num = map(int, sys.stdin.readline().split())
     holds[idx] = num
 
-one_flag = True
-for i in range(3):
-    if infos[i] == 1:
-        needs[0] = infos[i - 1] * infos[i - 2]
-        one_flag = False
-        break
-    if infos[i] % 2:
-        needs[0] += infos[i - 1] * infos[i - 2]
-        infos[i] -= 1
-
 
 def PutBigCube(arr, max_size=20):
     mn, md, mx = sorted(arr)
@@ -42,8 +32,7 @@ def PutBigCube(arr, max_size=20):
         PutBigCube([res_mn, md - res_md, mx - res_mx], big - 1)
 
 
-if one_flag:
-    PutBigCube(infos)
+PutBigCube(infos)
 needs = needs[::-1]
 holds = holds[::-1]
 
