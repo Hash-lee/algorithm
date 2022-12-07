@@ -9,14 +9,14 @@ elif A == B == C:
     print(1)
     exit()
 
-visit = [[1] * 1100 for _ in range(1100)]
+visit = [[1] * 501 for _ in range(501)]
 Q = deque()
 Q.append([A, B, C])
 
 while Q:
     a, b, c = Q.popleft()
     for (na, nb, nc) in (sorted([a + a, b, c - a]), sorted([a + a, b - a, c]), sorted([a, b + b, c - b])):
-        if not (0 < na < 1001 and 0 < nb < 1001 and 0 < nc < 1001):
+        if not (0 <= nc - nb < 500 and 0 <= nb - na < 500):
             continue
         if na == nb == nc:
             print(1)
