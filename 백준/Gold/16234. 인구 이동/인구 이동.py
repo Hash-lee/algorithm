@@ -3,49 +3,57 @@ from collections import deque
 
 N, L, R = map(int, sys.stdin.readline().split())
 arr = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
-
-
-# 1 <= N <= 50
-# L <= diff <=R
 dr = [0, 1, 0, -1]
 dc = [1, 0, -1, 0]
 
 
-def BFS(r, c):
-    global flag
+def grouping(r, c, num):
     Q = deque([(r, c)])
-    union = [(r, c)]
+    groups[r][c] = num
     total = arr[r][c]
+    cnt = 1
     while Q:
-        cr, cc = Q.pop()
+        r, c = Q.popleft()
         for k in range(4):
-            nr = cr + dr[k]
-            nc = cc + dc[k]
-            if 0 <= nr < N and 0 <= nc < N and L <= abs(arr[cr][cc] - arr[nr][nc]) <= R and visited[nr][nc]:
-                visited[nr][nc] = 0
-                union.append((nr, nc))
+            nr, nc = r + dr[k], c + dc[k]
+            if 0 <= nr < N and 0 <= nc < N and L <= abs(arr[nr][nc] - arr[r][c]) <= R and groups[nr][nc] < groups[r][c]:
+                groups[nr][nc] = num
                 Q.append((nr, nc))
                 total += arr[nr][nc]
-                flag = True
-
-    if flag:
-        k = total // len(union)
-        while union:
-            r, c = union.pop()
-            arr[r][c] = k
+                cnt += 1
+    return total // cnt
 
 
 flag = True
-day = 0
+days = 0
+changes = []
+groups = [[0] * N for _ in range(N)]
+populations = [0]
+group_num = 0
 while flag:
     flag = False
-    visited = [[1] * N for _ in range(N)]
-    for r in range(0, N):
-        for c in range(0, N):
-            if visited[r][c]:
-                visited[r][c] = 0
-                BFS(r, c)
-    if flag:
-        day += 1
 
-print(day)
+    if changes:
+        for change in changes:
+            r, c = change
+            group_num += 1
+            populations.append(grouping(r, c, group_num))
+    else:
+        for r in range(N):
+            for c in range(N):
+                if not groups[r][c]:
+                    group_num += 1
+                    populations.append(grouping(r, c, group_num))
+    tmp = []
+    for r in range(N):
+        for c in range(N):
+            if arr[r][c] != populations[groups[r][c]]:
+                tmp.append((r, c))
+                arr[r][c] = populations[groups[r][c]]
+
+    if tmp:
+        changes = tmp
+        flag = True
+        days += 1
+
+print(days)
