@@ -10,13 +10,13 @@ for idx in range(k):
         var += 1
     include[sushi[idx]] += 1
 mx = var
-for s in range(1, N):
-    e = (s + k - 1) % N
+for s in range(N):
+    e = (s + k) % N
     if not include[sushi[e]]:
         var += 1
     include[sushi[e]] += 1
-    include[sushi[s - 1]] -= 1
-    if not include[sushi[s - 1]]:
+    include[sushi[s]] -= 1
+    if not include[sushi[s]]:
         var -= 1
     mx = max(mx, var)
 print(mx)
