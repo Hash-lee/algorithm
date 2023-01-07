@@ -1,13 +1,5 @@
 import sys
 
 K, L = map(int, sys.stdin.readline().split())
-check = set()
-aligned = []
-
-applier = tuple(map(lambda x: x.strip(), sys.stdin.readlines()))
-for idx in range(-1, -L - 1, -1):
-    if not applier[idx] in check:
-        check.add(applier[idx])
-        aligned.append(applier[idx])
-
-print("\n".join(aligned[-1 : -K - 1 : -1]))
+dct = {sys.stdin.readline().strip(): i for i in range(L)}
+print("\n".join(sorted(dct.keys(), key=lambda x: dct[x])[:K]))
