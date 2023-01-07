@@ -10,6 +10,4 @@ for idx in range(-1, -L - 1, -1):
         check.add(applier[idx])
         aligned.append(applier[idx])
 
-K = len(aligned) if len(aligned) < K else K
-for idx in range(-1, -K - 1, -1):
-    print(aligned[idx])
+print("\n".join(aligned[-1 : -K - 1 : -1]))
