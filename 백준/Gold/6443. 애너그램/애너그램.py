@@ -1,4 +1,3 @@
-
 import sys
 
 
@@ -15,6 +14,7 @@ def DFS(s="", n=0):
 
 N = int(sys.stdin.readline())
 words = [sys.stdin.readline().rstrip() for _ in range(N)]
+words = sorted(list(set(words)), key=lambda x: (len(x), x))
 result = []
 for word in words:
     L = len(word)
@@ -28,6 +28,5 @@ for word in words:
     arr = []
     DFS()
     result.extend(arr)
-result = sorted(list(set(result)), key=lambda x: (len(x), x))
 for one in result:
     print(one)
