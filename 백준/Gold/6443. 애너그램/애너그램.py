@@ -3,7 +3,7 @@ import sys
 
 def DFS(s="", n=0):
     if n == L:
-        arr.append(s)
+        print(s)
     else:
         for alp in alps:
             if dct[alp]:
@@ -12,21 +12,11 @@ def DFS(s="", n=0):
                 dct[alp] += 1
 
 
-N = int(sys.stdin.readline())
-words = [sys.stdin.readline().rstrip() for _ in range(N)]
-words = sorted(list(set(words)), key=lambda x: (len(x), x))
-result = []
+words = sorted(list(set([sys.stdin.readline().rstrip() for _ in range(int(sys.stdin.readline()))])), key=lambda x: (len(x), x))
 for word in words:
     L = len(word)
     dct = {chr(i): 0 for i in range(97, 123)}
     for c in word:
         dct[c] += 1
-    alps = []
-    for k, v in dct.items():
-        if v:
-            alps.append(k)
-    arr = []
+    alps = sorted(set(word))
     DFS()
-    result.extend(arr)
-for one in result:
-    print(one)
