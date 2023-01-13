@@ -12,11 +12,11 @@ def DFS(s="", n=0):
                 dct[alp] += 1
 
 
-words = sorted(list(set([sys.stdin.readline().rstrip() for _ in range(int(sys.stdin.readline()))])), key=lambda x: (len(x), x))
+words = sorted((([sys.stdin.readline().rstrip() for _ in range(int(sys.stdin.readline()))])), key=lambda x: (len(x), x))
 for word in words:
     L = len(word)
-    dct = {chr(i): 0 for i in range(97, 123)}
+    alps = sorted(set(word))
+    dct = {alp: 0 for alp in alps}
     for c in word:
         dct[c] += 1
-    alps = sorted(set(word))
     DFS()
