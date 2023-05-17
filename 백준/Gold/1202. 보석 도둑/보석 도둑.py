@@ -13,12 +13,11 @@ heapify(treasure)
 for _ in range(K):
     bags.append(int(sys.stdin.readline()))
 bags.sort()
-heapify(bags)
 
 ans = 0
 available = []
-for _ in range(K):
-    limit = heappop(bags)
+for idx in range(K):
+    limit = bags[idx]
     while treasure and treasure[0][0] <= limit:
         w, v = heappop(treasure)
         heappush(available, -v)
